@@ -19,6 +19,8 @@
 
 @implementation ViewController
 
+@synthesize rightSwipeGestureRecognizer;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     httpControl = [HttpControl new];
@@ -26,7 +28,7 @@
 
     
     audioPlayer = [[STKAudioPlayer alloc] init];
-    
+    currentIndex = 0;
     
     httpControl.httpDelegate = self;
     
@@ -34,8 +36,8 @@
     
     channelArr = [NSMutableArray arrayWithCapacity:50];     //初始化频道列表
   
-    [btnPlayPause setImage:[UIImage imageNamed:@"btn_play"] forState:UIControlStateNormal];
-    [btnPlayPause setImage:[UIImage imageNamed:@"btn_pause"] forState:UIControlStateSelected];
+    [btnPlayPause setImage:[UIImage imageNamed:@"btn_pause"] forState:UIControlStateNormal];
+    [btnPlayPause setImage:[UIImage imageNamed:@"btn_play"] forState:UIControlStateSelected];
     
     [btnLike setImage:[UIImage imageNamed:@"like"] forState:UIControlStateSelected];
     [btnLike setImage:[UIImage imageNamed:@"like2"] forState:UIControlStateNormal];
@@ -51,12 +53,25 @@
     //recordImage.layer.masksToBounds = YES;
     //recordImage.layer.cornerRadius = recordImage.frame.size.width / 2;
     
-   
-   
+    [bottomSlider setUserInteractionEnabled:YES];
+    rightSwipeGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(onNextPlay)];
+    [bottomSlider addGestureRecognizer:rightSwipeGestureRecognizer];
     
 }
      
+
+- (void) onNextPlay{
+    NSLog(@"切换到下一首歌");
     
+    currentIndex++;
+    if(currentIndex > songArr.count - 1){
+        currentIndex = 0;
+    }
+    FMSong* nextSong = [songArr objectAtIndex:currentIndex];
+    [self playMusic:nextSong];
+}
+
+
 - (void) viewWillDisappear{
     
          
@@ -70,25 +85,40 @@
 
 - (void) startAnimation{
     
-    [UIView beginAnimations:nil context:nil];
+    [UIView animateWithDuration:0.1 animations:^{
+        recordImage.transform = CGAffineTransformMakeRotation(angle * (M_PI /180.0f));
+    } completion:^(BOOL finished) {
+        angle += 3;
+        [self startAnimation];
+    }];
     
-    [UIView setAnimationDuration:0.1];
-    
-    [UIView setAnimationDelegate:self];
-    
-    [UIView setAnimationDidStopSelector:@selector(endAnimation)];
-    
-    recordImage.transform = CGAffineTransformMakeRotation(angle * (M_PI /180.0f));
-    
-    [UIView commitAnimations];
+
 }
 
-- (void) endAnimation{
-    angle += 3;
+- (void) pauseRecordRotation:(CALayer *)layer{
+    CFTimeInterval pauseTime = [layer convertTime:CACurrentMediaTime() toLayer:nil];
     
-    [self startAnimation];
+    layer.speed = 0.0;
+    
+    layer.timeOffset = pauseTime;
+}
+
+- (void) resumeRecordRotation:(CALayer *)layer{
+    
+    CFTimeInterval pauseTime = [layer timeOffset];
+    
+    layer.speed = 1.0;
+    
+    layer.timeOffset = 0.0;
+    
+    layer.beginTime = 0.0;
+    
+    CFTimeInterval timeSincePause = [layer convertTime:CACurrentMediaTime() toLayer:nil] - pauseTime;
+    
+    layer.beginTime = timeSincePause;
     
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -108,9 +138,11 @@
     if(audioPlayer != nil){
         if(audioPlayer.state == STKAudioPlayerStatePaused){
             btnPlayPause.selected = !btnPlayPause.selected;
+            [self resumeRecordRotation:recordImage.layer];
             [audioPlayer resume];
         }else{
             btnPlayPause.selected = !btnPlayPause.selected;
+            [self pauseRecordRotation:recordImage.layer];
             [audioPlayer pause];
         }
     }
@@ -119,9 +151,7 @@
 }
 
 - (IBAction)clickChannelMenuAction:(id)sender {
-    
-    
-    
+
     [httpControl onSearch:channelURL];
 
 }
@@ -145,8 +175,8 @@
         
         if(audioPlayer != nil){
             FMSong *fmSong = [songArr objectAtIndex:0];
-            [self changeRecordImage:fmSong.picture];
-            [audioPlayer play:fmSong.url];
+            currentIndex = 0;
+            [self playMusic:fmSong];
         }
         
         NSLog(@"歌曲列表大小    %d",songArr.count);
@@ -160,14 +190,11 @@
 }
 
 
-- (void) playMusic:(NSDictionary*) song{
+- (void) playMusic:(FMSong*) song{
     
-    labelSingerName.text = [song objectForKey:@"artist"];
-    
-    labelSongName.text = [song objectForKey:@"title"];
-    
-   
-    NSURL* musicUrl = [NSURL URLWithString:[song objectForKey:@"title"]];
+    [audioPlayer stop];
+    [self changeRecordImage:song.picture];
+    [audioPlayer play:song.url];
     
 
 }

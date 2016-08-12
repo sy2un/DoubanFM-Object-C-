@@ -32,7 +32,7 @@
                                 <rect key="frame" x="0.0" y="370" width="320" height="5"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" alpha="0.46000000000000002" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="slideBG" translatesAutoresizingMaskIntoConstraints="NO" id="adU-pb-nBy">
-                                <rect key="frame" x="0.0" y="516" width="320" height="52"/>
+                                <rect key="frame" x="0.0" y="514" width="320" height="52"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="recordBG" translatesAutoresizingMaskIntoConstraints="NO" id="o55-SI-x53">
                                 <rect key="frame" x="36" y="88" width="251" height="251"/>
@@ -96,6 +96,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="bottomSlider" destination="adU-pb-nBy" id="OuN-io-YJf"/>
                         <outlet property="btnLike" destination="LiM-ac-o8E" id="7eo-hT-gfK"/>
                         <outlet property="btnPlayPause" destination="JbA-pc-OOs" id="PYU-Bi-uCj"/>
                         <outlet property="labelSingerName" destination="bLW-cB-jhX" id="Yc7-MQ-r2p"/>

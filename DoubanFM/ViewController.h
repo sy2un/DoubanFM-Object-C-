@@ -31,16 +31,22 @@
     NSMutableArray *songArr;
     NSMutableArray *channelArr;
     float angle;
+    
+    int currentIndex;   //当前播放歌曲的索引
+    
+    __weak IBOutlet UIImageView *bottomSlider;
 }
 
+
+@property (nonatomic, strong) UISwipeGestureRecognizer *rightSwipeGestureRecognizer;
 - (void) onRotation;
 
 - (void) startAnimation;
 
-- (void) endAnimation;
 
+- (void) playMusic:(FMSong*) song;
 
-- (void) playMusic:(NSDictionary*) song;
+- (void) onNextPlay;
 
 - (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag;
 
@@ -52,6 +58,9 @@
 //获取歌曲信息
 - (void)getSongData:(NSArray*) songs;
 
+- (void)pauseRecordRotation:(CALayer*) layer;
+
+- (void)resumeRecordRotation:(CALayer*) layer;
 
 - (IBAction)clickChannelMenuAction:(id)sender;
 #pragma 讨厌按钮点击事件
