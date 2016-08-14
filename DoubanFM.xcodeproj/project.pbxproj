@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		31ADD957D830E89325E30916 /* libPods-DoubanFM.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 43D3D893C8707D7E7D5D365D /* libPods-DoubanFM.a */; };
 		4C10D9271D50F5D400798A40 /* HttpControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C10D9261D50F5D400798A40 /* HttpControl.m */; };
+		4C8CE6D71D5F057700C373ED /* progress.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C8CE6D61D5F057700C373ED /* progress.png */; };
+		4C8CE6DA1D5F08F100C373ED /* CircleProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8CE6D91D5F08F100C373ED /* CircleProgress.m */; };
 		4CC45FE31D4F7ED100109C05 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CC45FE21D4F7ED100109C05 /* main.m */; };
 		4CC45FE61D4F7ED100109C05 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CC45FE51D4F7ED100109C05 /* AppDelegate.m */; };
 		4CC45FE91D4F7ED100109C05 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CC45FE81D4F7ED100109C05 /* ViewController.m */; };
@@ -31,6 +33,9 @@
 		43D3D893C8707D7E7D5D365D /* libPods-DoubanFM.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DoubanFM.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C10D9251D50F5D400798A40 /* HttpControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HttpControl.h; sourceTree = "<group>"; };
 		4C10D9261D50F5D400798A40 /* HttpControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HttpControl.m; sourceTree = "<group>"; };
+		4C8CE6D61D5F057700C373ED /* progress.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = progress.png; path = ../../../progress.png; sourceTree = "<group>"; };
+		4C8CE6D81D5F08F100C373ED /* CircleProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleProgress.h; sourceTree = "<group>"; };
+		4C8CE6D91D5F08F100C373ED /* CircleProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleProgress.m; sourceTree = "<group>"; };
 		4CC45FDE1D4F7ED100109C05 /* DoubanFM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DoubanFM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CC45FE21D4F7ED100109C05 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4CC45FE41D4F7ED100109C05 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -125,6 +130,7 @@
 				4CC45FE81D4F7ED100109C05 /* ViewController.m */,
 				4CC45FEA1D4F7ED100109C05 /* Main.storyboard */,
 				4CC45FED1D4F7ED100109C05 /* Assets.xcassets */,
+				4C8CE6D61D5F057700C373ED /* progress.png */,
 				4CC45FEF1D4F7ED100109C05 /* LaunchScreen.storyboard */,
 				4CC45FF21D4F7ED100109C05 /* Info.plist */,
 				4CC45FE11D4F7ED100109C05 /* Supporting Files */,
@@ -178,6 +184,8 @@
 			children = (
 				E22FE8061D5C7A6300A361C8 /* NSDictionaryExtend.h */,
 				E22FE8071D5C7A6300A361C8 /* NSDictionaryExtend.m */,
+				4C8CE6D81D5F08F100C373ED /* CircleProgress.h */,
+				4C8CE6D91D5F08F100C373ED /* CircleProgress.m */,
 			);
 			name = Tools;
 			sourceTree = "<group>";
@@ -257,6 +265,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C8CE6D71D5F057700C373ED /* progress.png in Resources */,
 				4CC45FF11D4F7ED100109C05 /* LaunchScreen.storyboard in Resources */,
 				4CC45FEE1D4F7ED100109C05 /* Assets.xcassets in Resources */,
 				4CC45FEC1D4F7ED100109C05 /* Main.storyboard in Resources */,
@@ -324,6 +333,7 @@
 				4CC45FE91D4F7ED100109C05 /* ViewController.m in Sources */,
 				E229DD0F1D51E39B00F85F47 /* RecordUIImageView.m in Sources */,
 				4CC45FE61D4F7ED100109C05 /* AppDelegate.m in Sources */,
+				4C8CE6DA1D5F08F100C373ED /* CircleProgress.m in Sources */,
 				E22FE8041D5C760300A361C8 /* FMConfig.m in Sources */,
 				E22FE8081D5C7A6300A361C8 /* NSDictionaryExtend.m in Sources */,
 				4CC45FE31D4F7ED100109C05 /* main.m in Sources */,

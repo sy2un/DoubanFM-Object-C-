@@ -14,6 +14,8 @@
 #import "STKAutoRecoveringHTTPDataSource.h"
 #import "STKAudioPlayer.h"
 #import "NSDictionaryExtend.h"
+#import "CircleProgress.h"
+#import <Foundation/Foundation.h>
 
 
 @interface ViewController : UIViewController<HttpDelegate,AVAudioPlayerDelegate>
@@ -26,6 +28,9 @@
     
     __weak IBOutlet UIButton *btnLike;
     __weak IBOutlet UIButton *btnPlayPause;
+    __weak IBOutlet UIImageView *imgProgress;
+    
+    __weak IBOutlet CircleProgress *progress;
     
     STKAudioPlayer* audioPlayer;
     NSMutableArray *songArr;
@@ -34,7 +39,10 @@
     
     int currentIndex;   //当前播放歌曲的索引
     
+    NSTimer* timer;
+    
     __weak IBOutlet UIImageView *bottomSlider;
+
 }
 
 
@@ -57,9 +65,9 @@
 - (void)getChannelData:(NSDictionary*) channels;
 //获取歌曲信息
 - (void)getSongData:(NSArray*) songs;
-
+//暂停转动唱片背景
 - (void)pauseRecordRotation:(CALayer*) layer;
-
+//继续转动唱片背景
 - (void)resumeRecordRotation:(CALayer*) layer;
 
 - (IBAction)clickChannelMenuAction:(id)sender;
@@ -70,7 +78,7 @@
 #pragma 喜欢按钮点击事件
 - (IBAction)clickLikeAction:(id)sender;
 
-
+- (void) updateProgress;
 
 //获取到网络数据
 - (void) didRecieveData:(NSDictionary*) jsonData;

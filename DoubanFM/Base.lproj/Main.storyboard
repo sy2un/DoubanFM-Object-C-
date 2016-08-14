@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -86,6 +86,10 @@
                                     <action selector="clickChannelMenuAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="FGJ-gv-bS7"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K6I-4T-x7K" customClass="CircleProgress">
+                                <rect key="frame" x="31" y="284" width="261" height="267"/>
+                                <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -101,6 +105,7 @@
                         <outlet property="btnPlayPause" destination="JbA-pc-OOs" id="PYU-Bi-uCj"/>
                         <outlet property="labelSingerName" destination="bLW-cB-jhX" id="Yc7-MQ-r2p"/>
                         <outlet property="labelSongName" destination="IEe-pd-JjM" id="6ej-Ur-g1t"/>
+                        <outlet property="progress" destination="K6I-4T-x7K" id="u2A-wu-uMU"/>
                         <outlet property="recordImage" destination="o55-SI-x53" id="320-O9-sMU"/>
                     </connections>
                 </viewController>

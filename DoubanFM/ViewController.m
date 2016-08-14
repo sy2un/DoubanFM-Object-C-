@@ -42,6 +42,8 @@
     [btnLike setImage:[UIImage imageNamed:@"like"] forState:UIControlStateSelected];
     [btnLike setImage:[UIImage imageNamed:@"like2"] forState:UIControlStateNormal];
     
+    
+    
     NSString* url = @"https://douban.fm/j/mine/playlist?from=mainsite&channel=159&kbps=128&type=n";
     
     [httpControl onSearch:url];
@@ -49,6 +51,10 @@
 
     
     [recordImage initRadius];
+    CGPoint point = CGPointMake(recordImage.frame.origin.x + recordImage.frame.size.width / 2, recordImage.frame.origin.y - recordImage.frame.size.height / 2);
+    [progress initProgress:point circleRadius:recordImage.frame.size.width / 2 + 5 fillinColor:[UIColor clearColor] borderColor:[UIColor blackColor]];
+    
+    
     //recordImage.frame = CGRectMake(recordImage.frame.origin.x, recordImage.frame.origin.y, recordImage.frame.size.width, recordImage.frame.size.height);
     //recordImage.layer.masksToBounds = YES;
     //recordImage.layer.cornerRadius = recordImage.frame.size.width / 2;
@@ -57,12 +63,13 @@
     rightSwipeGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(onNextPlay)];
     [bottomSlider addGestureRecognizer:rightSwipeGestureRecognizer];
     
+    timer = [NSTimer scheduledTimerWithTimeInterval:0 target:self selector:@selector(updateProgress) userInfo:nil repeats:YES];
 }
      
 
 - (void) onNextPlay{
     NSLog(@"切换到下一首歌");
-    
+   
     currentIndex++;
     if(currentIndex > songArr.count - 1){
         currentIndex = 0;
@@ -75,6 +82,18 @@
 - (void) viewWillDisappear{
     
          
+}
+
+
+- (void) updateProgress{
+    float currTime = (float)audioPlayer.progress;     //当前播放时间
+    float totalTime = (float)audioPlayer.duration;       //总共时间
+    if(totalTime != 0){
+        float divisionTime = (currTime  / totalTime);
+        [progress setProgress:divisionTime];
+    }
+  
+    
 }
 
 - (void) onRotation{
@@ -92,7 +111,7 @@
         [self startAnimation];
     }];
     
-
+    
 }
 
 - (void) pauseRecordRotation:(CALayer *)layer{
@@ -194,8 +213,11 @@
     
     [audioPlayer stop];
     [self changeRecordImage:song.picture];
+    labelSongName.text = song.title;
+    labelSingerName.text = song.artist;
     [audioPlayer play:song.url];
-    
+
+
 
 }
 
