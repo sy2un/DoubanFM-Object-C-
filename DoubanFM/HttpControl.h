@@ -17,7 +17,9 @@
 }
 @property(nonatomic,weak)id<HttpDelegate>httpDelegate;
 
-- (void) onSearch:(NSString*) url;
+- (void) onGetRequest:(NSString*) url;
+
+- (void) onPostRequest:(NSDictionary*) params;
 @end
 
 

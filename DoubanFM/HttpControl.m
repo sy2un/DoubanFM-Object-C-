@@ -13,7 +13,7 @@
 
 @implementation HttpControl
 
-- (void) onSearch:(NSString *)url{
+- (void) onGetRequest:(NSString *)url{
 
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
 
@@ -37,5 +37,19 @@
     
 }
 
+
+- (void) onPostRequest:(NSDictionary *)params{
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+
+    [manager POST:@"http://www.douban.com/j/app/login" parameters:params progress:^(NSProgress * _Nonnull uploadProgress) {
+        //这里可以获取到目前的数据请求进度
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"登录结果:%@", responseObject);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"登录失败");
+    }];
+    
+}
 
 @end

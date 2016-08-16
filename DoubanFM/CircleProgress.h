@@ -27,6 +27,8 @@
 
 - (void) drawProgress;
 
+- (void) initPos:(CGPoint) pos;
+
 
 
 

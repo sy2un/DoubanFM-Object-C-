@@ -16,21 +16,25 @@
 #import "NSDictionaryExtend.h"
 #import "CircleProgress.h"
 #import <Foundation/Foundation.h>
-
+#import "RecordUIImageView.h"
 
 @interface ViewController : UIViewController<HttpDelegate,AVAudioPlayerDelegate>
 {
     HttpControl* httpControl;
     
     __weak IBOutlet UILabel *labelSongName;
-    __weak IBOutlet UIImageView *recordImage;
+
     __weak IBOutlet UILabel *labelSingerName;
     
     __weak IBOutlet UIButton *btnLike;
     __weak IBOutlet UIButton *btnPlayPause;
-    __weak IBOutlet UIImageView *imgProgress;
+
     
-    __weak IBOutlet CircleProgress *progress;
+    __weak IBOutlet UIImageView *recordImage;
+    __weak IBOutlet UIImageView *recordCenter;
+    __weak IBOutlet CircleProgress *circleProgress;
+
+    __weak IBOutlet UIImageView *progress;
     
     STKAudioPlayer* audioPlayer;
     NSMutableArray *songArr;

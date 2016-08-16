@@ -45,19 +45,40 @@
     
     
     NSString* url = @"https://douban.fm/j/mine/playlist?from=mainsite&channel=159&kbps=128&type=n";
-    
-    [httpControl onSearch:url];
+
+    //[httpControl onGetRequest:url];
+    NSDictionary *parameters = @{
+                                 @"app_name":@"radio_desktop_win",
+                                 @"version":@"100",
+                                 @"email":@"yu.sun007x@gmail.com",
+                                 @"password":@"86michael21"
+                                 };
+
+    [httpControl onPostRequest:parameters];
     [recordImage setImage:[UIImage imageNamed:@"recordBG"]];
 
     
     [recordImage initRadius];
-    CGPoint point = CGPointMake(recordImage.frame.origin.x + recordImage.frame.size.width / 2, recordImage.frame.origin.y - recordImage.frame.size.height / 2);
-    [progress initProgress:point circleRadius:recordImage.frame.size.width / 2 + 5 fillinColor:[UIColor clearColor] borderColor:[UIColor blackColor]];
     
+    
+    CGPoint point = CGPointMake(recordImage.layer.position.x, recordImage.layer.position.y);
+    //[progress initPos:recordImage.layer.position];
+    UIColor *borderC = [UIColor colorWithRed:0.8/255 green:0.7/255  blue:0.9/255 alpha:1.0f];
+
+    //[progress initProgress:recordImage.layer.position circleRadius:recordImage.layer.frame.size.width / 2 fillinColor:[UIColor clearColor] borderColor:borderC];
+    
+    NSLog(@"唱片背景 position %f,%f",recordImage.layer.position.x,recordImage.layer.position.y);
+    NSLog(@"唱片origin %f,%f",recordImage.frame.origin.x,recordImage.frame.origin.y);
+    NSLog(@"中心圆position %f,%f",recordCenter.layer.position.x,recordCenter.layer.position.y);
+    NSLog(@"中心圆origin %f,%f",recordCenter.frame.origin.x,recordCenter.frame.origin.y);
+
+    
+    NSLog(@"进度条 position %f,%f",progress.layer.position.x,progress.layer.position.y		);
     
     //recordImage.frame = CGRectMake(recordImage.frame.origin.x, recordImage.frame.origin.y, recordImage.frame.size.width, recordImage.frame.size.height);
     //recordImage.layer.masksToBounds = YES;
     //recordImage.layer.cornerRadius = recordImage.frame.size.width / 2;
+    
     
     [bottomSlider setUserInteractionEnabled:YES];
     rightSwipeGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(onNextPlay)];
@@ -89,8 +110,12 @@
     float currTime = (float)audioPlayer.progress;     //当前播放时间
     float totalTime = (float)audioPlayer.duration;       //总共时间
     if(totalTime != 0){
-        float divisionTime = (currTime  / totalTime);
-        [progress setProgress:divisionTime];
+        float timePercent = (currTime  / totalTime);
+        //        songTimeProgress.frame.size.width = view.frame.size.width * percent
+        CGRect tempRect = progress.frame;
+        tempRect.size.width = self.view.frame.size.width * timePercent;
+        progress.frame = tempRect;
+        //[progress setProgress:divisionTime];
     }
   
     
@@ -154,7 +179,7 @@
 
 - (IBAction)clickPlayAction:(id)sender {
     
-    if(audioPlayer != nil){
+    if(audioPlayer != nil){         //暂停/播放音乐，并切换播放按钮图片，
         if(audioPlayer.state == STKAudioPlayerStatePaused){
             btnPlayPause.selected = !btnPlayPause.selected;
             [self resumeRecordRotation:recordImage.layer];
@@ -171,7 +196,7 @@
 
 - (IBAction)clickChannelMenuAction:(id)sender {
 
-    [httpControl onSearch:channelURL];
+    [httpControl onGetRequest:channelURL];
 
 }
 
